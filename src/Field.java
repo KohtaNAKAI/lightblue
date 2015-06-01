@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.swing.*;
 
 public class Field {
 	public int myPiece[][] = new int[16][3];
@@ -191,7 +192,7 @@ public class Field {
 			}
 		}
 	}
-	//get evaluation point of the situation
+	//get evaluation point of the situation2
 	public int evaluate(){
 		int i;
 		int mypoint = 0;
@@ -229,7 +230,6 @@ public class Field {
 					break;
 			}
 		}
-		//System.out.println("mypoint = " + Integer.toString(mypoint));
 		
 		int oppopoint = 0;
 		for(i=0; i<16; i++){
@@ -266,20 +266,29 @@ public class Field {
 					break;
 			}
 		}
-		//System.out.println("oppopoint = " + Integer.toString(oppopoint));
 		
-		return mypoint - oppopoint;
+		return (mypoint - oppopoint);
 	}
 	//get all possible moves
 	public ArrayList<int[]> get_available_moves(String player){
 		ArrayList<int[]> possibility = new ArrayList<int[]>();
 		int i,j;
 		for(i=0; i<16; i++){
-			if(this.myPiece[i][0] != -99){
-				ArrayList<int[]> tmp_possibility = new ArrayList<int[]>();
-				tmp_possibility = get_available_moves(player,i);
-				for(j=0; j<tmp_possibility.size(); j++){
-					possibility.add(tmp_possibility.get(j).clone());
+			if(player.equals("me")){
+				if(this.myPiece[i][0] != -99){
+					ArrayList<int[]> tmp_possibility = new ArrayList<int[]>();
+					tmp_possibility = get_available_moves(player,i);
+					for(j=0; j<tmp_possibility.size(); j++){
+						possibility.add(tmp_possibility.get(j).clone());
+					}
+				}
+			}else{
+				if(this.oppoPiece[i][0] != -99){
+					ArrayList<int[]> tmp_possibility = new ArrayList<int[]>();
+					tmp_possibility = get_available_moves(player,i);
+					for(j=0; j<tmp_possibility.size(); j++){
+						possibility.add(tmp_possibility.get(j).clone());
+					}
 				}
 			}
 		}
@@ -1284,5 +1293,120 @@ public class Field {
 			}
 		}
 		return nextstep;
+	}
+
+	//consider 1 turn and get the best move
+	public int[] get_best_move_1turn(boolean f_msg, boolean f_debug){
+		long starttime = System.currentTimeMillis();
+		if(f_debug == true){
+			System.out.println("my next possible moves : ");
+		}
+		
+		int i,j;
+		ArrayList<int[]> possibility_1st = new ArrayList<int[]>();
+		ArrayList<int[]> possibility_2nd = new ArrayList<int[]>();
+		ArrayList<Integer> min_pt_of_2nd_move = new ArrayList<Integer>();
+		
+		//1st step
+		//get_available_moves
+		//possibility_1st = Lightblue2.current_situation.get_available_moves("me");
+		possibility_1st = this.get_available_moves("me");
+		if(f_debug == true){
+			for(i=0; i<possibility_1st.size(); i++){
+				System.out.println(Arrays.toString(possibility_1st.get(i)));
+			}
+		}
+		//generate_nextstep_fields
+		ArrayList<Field> nextstep_1st = new ArrayList<Field>();
+		//nextstep_1st = Lightblue2.current_situation.generate_nextstep_fields("me", possibility_1st);
+		nextstep_1st = this.generate_nextstep_fields("me", possibility_1st);
+		
+		//2nd step
+		for(i=0; i<nextstep_1st.size(); i++){
+			//get_available_moves
+			possibility_2nd = nextstep_1st.get(i).get_available_moves("oppo");
+			int min_pt = 999;
+			if(f_debug == true){
+				System.out.println("possible moves for 1st move : " + i);
+				for(j=0; j<possibility_2nd.size(); j++){
+					System.out.println(Arrays.toString(possibility_2nd.get(j)));
+				}
+			}
+			
+			//generate_neststep_fields
+			ArrayList<Field> nextstep_2nd = new ArrayList<Field>();
+			nextstep_2nd = nextstep_1st.get(i).generate_nextstep_fields("oppo", possibility_2nd);
+			for(j=0; j<nextstep_2nd.size(); j++){
+				//System.out.println(nextstep_2nd.get(j).evaluate());
+				if(min_pt > nextstep_2nd.get(j).evaluate()){
+					min_pt = nextstep_2nd.get(j).evaluate();
+				}
+			}
+			min_pt_of_2nd_move.add(min_pt);
+			if(f_debug == true){
+				System.out.println("min_pt = " + min_pt);
+			}
+		}
+		
+		if(f_debug == true){
+			System.out.println("\n" + "min_pt_of_2nd_move : ");
+			for(i=0; i<min_pt_of_2nd_move.size(); i++){
+				System.out.println(i + " = " + Arrays.toString(possibility_1st.get(i)) + " : " + min_pt_of_2nd_move.get(i));
+			}
+		}
+		
+		//specify the best 1st move
+		int tmp_max_point = -999;
+		int tmp_max_index = -999;
+		for(i=0; i<min_pt_of_2nd_move.size(); i++){
+			if(tmp_max_point <= min_pt_of_2nd_move.get(i)){
+				tmp_max_point = min_pt_of_2nd_move.get(i);
+				tmp_max_index = i;
+			}
+		}
+		if(f_debug == true){
+			System.out.println("BEST = 1st move : " + tmp_max_index + " / 2nd move min pt = " + tmp_max_point + " (before random selection)\n");
+		}
+	
+		//list up candidates
+		ArrayList<Integer> candidates_1stmove_index = new ArrayList<Integer>();
+		for(i=0; i<min_pt_of_2nd_move.size(); i++){
+			if(tmp_max_point == min_pt_of_2nd_move.get(i)){
+				candidates_1stmove_index.add(i);
+			}
+		}
+		for(i=0; i<candidates_1stmove_index.size(); i++){
+			if(f_debug == true){
+				System.out.println("candidate / " + candidates_1stmove_index.get(i) + " = " + Arrays.toString(possibility_1st.get(candidates_1stmove_index.get(i))) + " : " + min_pt_of_2nd_move.get(candidates_1stmove_index.get(i)));
+			}
+			
+		}
+		
+		//random selection
+		Random rnd = new Random();
+		int chosen_index = candidates_1stmove_index.get(rnd.nextInt(candidates_1stmove_index.size()));
+		//int chosen_index = candidates_1stmove_index.get(candidates_1stmove_index.size()-1);
+		int chosen_piece = possibility_1st.get(chosen_index)[0];
+		int chosen_x = possibility_1st.get(chosen_index)[1];
+		int chosen_y = possibility_1st.get(chosen_index)[2];
+
+		long endtime = System.currentTimeMillis();
+		if(f_debug == true){
+			System.out.println("\n" + "start : " + starttime + " / end : " + endtime + " / duration : " + (endtime-starttime));
+		}
+			
+		String msg = new String("\n" + "#candidates:" + candidates_1stmove_index.size() + "\n" + "chosenindex:" + chosen_index);
+		msg = msg + "\n\n" + "piece = " + Integer.toString(chosen_piece);
+		msg = msg + "\n" + "x = " + Integer.toString(chosen_x);
+		msg = msg + "\n" + "y = " + Integer.toString(chosen_y);
+		msg = msg + "\n" + "min_point after 2nd step = " + tmp_max_point;
+		if(f_msg == true){
+			JOptionPane.showMessageDialog(null, msg);
+		}
+		if(f_debug == true){
+			System.out.println(msg);
+		}
+		int[] return_move = {chosen_piece, chosen_x, chosen_y, tmp_max_point};
+		return return_move;
 	}
 }

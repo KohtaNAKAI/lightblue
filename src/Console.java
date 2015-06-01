@@ -24,6 +24,11 @@ public class Console{
 		JB_2step.setBounds(10,70,200,50);
 		JB_2step.addActionListener(new Listener_available_moves2());
 		
+		JButton JB_4step = new JButton("Move Selection : 4 steps");
+		cont.add(JB_4step);
+		JB_4step.setBounds(10,130,200,50);
+		JB_4step.addActionListener(new Listener_available_moves4());
+		
 		JLabel JL_player = new JLabel("player");
 		cont.add(JL_player);
 		JL_player.setBounds(250,10,50,30);
