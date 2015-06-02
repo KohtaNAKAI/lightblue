@@ -2,8 +2,8 @@ import java.util.*;
 import javax.swing.*;
 
 public class Field {
-	public int myPiece[][] = new int[16][3];
-	public int oppoPiece[][] = new int[16][3];
+	public int myPiece[][] = new int[16][4];
+	public int oppoPiece[][] = new int[16][4];
 	
 	//constructor
 	public Field(){
@@ -12,132 +12,164 @@ public class Field {
 		this.myPiece[0][0] = 0;
 		this.myPiece[0][1] = 1;
 		this.myPiece[0][2] = 4;
+		this.myPiece[0][3] = 0;		//K
 		//Q
 		this.myPiece[1][0] = 1;
 		this.myPiece[1][1] = 1;
 		this.myPiece[1][2] = 5;
+		this.myPiece[1][3] = 1;		//Q
 		//B1
 		this.myPiece[2][0] = 2;
 		this.myPiece[2][1] = 1;
 		this.myPiece[2][2] = 3;
+		this.myPiece[2][3] = 2;		//B
 		//B2
 		this.myPiece[3][0] = 3;
 		this.myPiece[3][1] = 1;
 		this.myPiece[3][2] = 6;
+		this.myPiece[3][3] = 2;		//B
 		//H1
 		this.myPiece[4][0] = 4;
 		this.myPiece[4][1] = 1;
 		this.myPiece[4][2] = 2;
+		this.myPiece[4][3] = 3;		//H
 		//H2
 		this.myPiece[5][0] = 5;
 		this.myPiece[5][1] = 1;
 		this.myPiece[5][2] = 7;
+		this.myPiece[5][3] = 3;		//H
 		//R1
 		this.myPiece[6][0] = 6;
 		this.myPiece[6][1] = 1;
 		this.myPiece[6][2] = 1;
+		this.myPiece[6][3] = 4;		//R
 		//R2
 		this.myPiece[7][0] = 7;
 		this.myPiece[7][1] = 1;
 		this.myPiece[7][2] = 8;
+		this.myPiece[7][3] = 4;		//R	
 		//P1
 		this.myPiece[8][0] = 8;
 		this.myPiece[8][1] = 2;
 		this.myPiece[8][2] = 1;
+		this.myPiece[8][3] = 5;		//P
 		//P2
 		this.myPiece[9][0] = 9;
 		this.myPiece[9][1] = 2;
 		this.myPiece[9][2] = 2;
+		this.myPiece[9][3] = 5;		//P
 		//P3
 		this.myPiece[10][0] = 10;
 		this.myPiece[10][1] = 2;
 		this.myPiece[10][2] = 3;
+		this.myPiece[10][3] = 5;	//P
 		//P4
 		this.myPiece[11][0] = 11;
 		this.myPiece[11][1] = 2;
 		this.myPiece[11][2] = 4;
+		this.myPiece[11][3] = 5;	//P
 		//P5
 		this.myPiece[12][0] = 12;
 		this.myPiece[12][1] = 2;
 		this.myPiece[12][2] = 5;
+		this.myPiece[12][3] = 5;	//P
 		//P6
 		this.myPiece[13][0] = 13;
 		this.myPiece[13][1] = 2;
 		this.myPiece[13][2] = 6;
+		this.myPiece[13][3] = 5;	//P
 		//P7
 		this.myPiece[14][0] = 14;
 		this.myPiece[14][1] = 2;
 		this.myPiece[14][2] = 7;
+		this.myPiece[14][3] = 5;	//P
 		//P8
 		this.myPiece[15][0] = 15;
 		this.myPiece[15][1] = 2;
 		this.myPiece[15][2] = 8;
+		this.myPiece[15][3] = 5;	//P
 		
 		//OppoPiece
 		//K
 		this.oppoPiece[0][0] = 0;
 		this.oppoPiece[0][1] = 8;
 		this.oppoPiece[0][2] = 4;
+		this.oppoPiece[0][3] = 0;	//K
 		//Q
 		this.oppoPiece[1][0] = 1;
 		this.oppoPiece[1][1] = 8;
 		this.oppoPiece[1][2] = 5;
+		this.oppoPiece[1][3] = 1;	//Q
 		//B1
 		this.oppoPiece[2][0] = 2;
 		this.oppoPiece[2][1] = 8;
 		this.oppoPiece[2][2] = 3;
+		this.oppoPiece[2][3] = 2;	//B
 		//B2
 		this.oppoPiece[3][0] = 3;
 		this.oppoPiece[3][1] = 8;
 		this.oppoPiece[3][2] = 6;
+		this.oppoPiece[3][3] = 2;	//B
 		//H1
 		this.oppoPiece[4][0] = 4;
 		this.oppoPiece[4][1] = 8;
 		this.oppoPiece[4][2] = 2;
+		this.oppoPiece[4][3] = 3;	//H
 		//H2
 		this.oppoPiece[5][0] = 5;
 		this.oppoPiece[5][1] = 8;
 		this.oppoPiece[5][2] = 7;
+		this.oppoPiece[5][3] = 3;	//H
 		//R1
 		this.oppoPiece[6][0] = 6;
 		this.oppoPiece[6][1] = 8;
 		this.oppoPiece[6][2] = 1;
+		this.oppoPiece[6][3] = 4;	//R
 		//R2
 		this.oppoPiece[7][0] = 7;
 		this.oppoPiece[7][1] = 8;
 		this.oppoPiece[7][2] = 8;
+		this.oppoPiece[7][3] = 4;	//R
 		//P1
 		this.oppoPiece[8][0] = 8;
 		this.oppoPiece[8][1] = 7;
 		this.oppoPiece[8][2] = 1;
+		this.oppoPiece[8][3] = 5;	//P
 		//P2
 		this.oppoPiece[9][0] = 9;
 		this.oppoPiece[9][1] = 7;
 		this.oppoPiece[9][2] = 2;
+		this.oppoPiece[9][3] = 5;	//P
 		//P3
 		this.oppoPiece[10][0] = 10;
 		this.oppoPiece[10][1] = 7;
 		this.oppoPiece[10][2] = 3;
+		this.oppoPiece[10][3] = 5;	//P
 		//P4
 		this.oppoPiece[11][0] = 11;
 		this.oppoPiece[11][1] = 7;
 		this.oppoPiece[11][2] = 4;
+		this.oppoPiece[11][3] = 5;	//P
 		//P5
 		this.oppoPiece[12][0] = 12;
 		this.oppoPiece[12][1] = 7;
 		this.oppoPiece[12][2] = 5;
+		this.oppoPiece[12][3] = 5;	//P
 		//P6
 		this.oppoPiece[13][0] = 13;
 		this.oppoPiece[13][1] = 7;
 		this.oppoPiece[13][2] = 6;
+		this.oppoPiece[13][3] = 5;	//P
 		//P7
 		this.oppoPiece[14][0] = 14;
 		this.oppoPiece[14][1] = 7;
 		this.oppoPiece[14][2] = 7;
+		this.oppoPiece[14][3] = 5;	//P
 		//P8
 		this.oppoPiece[15][0] = 15;
 		this.oppoPiece[15][1] = 7;
 		this.oppoPiece[15][2] = 8;
+		this.oppoPiece[15][3] = 5;	//P
 	}
 	//show for debug
 	public void debug_show(){
@@ -155,14 +187,14 @@ public class Field {
 	public void set_field(Field given_field){
 		int i,j;
 		for(i=0; i<16; i++){
-			for(j=0; j<3; j++){
+			for(j=0; j<4; j++){
 				this.myPiece[i][j] = given_field.myPiece[i][j];
 				this.oppoPiece[i][j] = given_field.oppoPiece[i][j];
 			}
 		}
 	}
 	//move piece
-	public void move_piece(String player, int piece, int x, int y){
+	public void move_piece(String player, int piece, int x, int y, int kind){
 		int i;
 		if(player.equals("me")){
 			this.myPiece[piece][1] = x;
@@ -174,9 +206,16 @@ public class Field {
 					this.oppoPiece[i][0] = -99;
 					this.oppoPiece[i][1] = 0;
 					this.oppoPiece[i][2] = 0;
+					this.oppoPiece[i][3] = -99;
 					break;
 				}
 			}
+			
+			//pone promotion
+			if((kind == 5) && (x == 8)){
+				this.myPiece[piece][3] = 1;		//promotion to Q
+			}
+			
 		}else{
 			this.oppoPiece[piece][1] = x;
 			this.oppoPiece[piece][2] = y;
@@ -187,8 +226,14 @@ public class Field {
 					this.myPiece[i][0] = -99;
 					this.myPiece[i][1] = 0;
 					this.myPiece[i][2] = 0;
+					this.myPiece[i][3] = -99;
 					break;
 				}
+			}
+			
+			//pone promotion
+			if((kind == 5) && (x == 1)){
+				this.oppoPiece[piece][3] = 1;	//promotion to Q
 			}
 		}
 	}
@@ -197,33 +242,23 @@ public class Field {
 		int i;
 		int mypoint = 0;
 		for(i=0; i<16; i++){
-			switch(this.myPiece[i][0]){
+			switch(this.myPiece[i][3]){
 				case 0:		//K
 					mypoint = mypoint + 100;
 					break;
 				case 1: 	//Q
 					mypoint = mypoint + 9;
 					break;
-				case 2: 	//B1
-				case 3: 	//B2
+				case 2: 	//B
 					mypoint = mypoint + 3;
 					break;
-				case 4: 	//H1
-				case 5: 	//H2
+				case 3: 	//H
 					mypoint = mypoint + 3;
 					break;
-				case 6: 	//R1
-				case 7: 	//R2
+				case 4: 	//R
 					mypoint = mypoint + 5;
 					break;
-				case 8: 	//P1
-				case 9: 	//P2
-				case 10: 	//P3
-				case 11: 	//P4
-				case 12: 	//P5
-				case 13: 	//P6
-				case 14: 	//P7
-				case 15: 	//P8
+				case 5: 	//P
 					mypoint = mypoint + 1;
 					break;
 				default:
@@ -233,33 +268,23 @@ public class Field {
 		
 		int oppopoint = 0;
 		for(i=0; i<16; i++){
-			switch(this.oppoPiece[i][0]){
+			switch(this.oppoPiece[i][3]){
 				case 0:		//K
 					oppopoint = oppopoint + 100;
 					break;
 				case 1: 	//Q
 					oppopoint = oppopoint + 9;
 					break;
-				case 2: 	//B1
-				case 3: 	//B2
+				case 2: 	//B
 					oppopoint = oppopoint + 3;
 					break;
-				case 4: 	//H1
-				case 5: 	//H2
+				case 3: 	//H
 					oppopoint = oppopoint + 3;
 					break;
-				case 6: 	//R1
-				case 7: 	//R2
+				case 4: 	//R
 					oppopoint = oppopoint + 5;
 					break;
-				case 8: 	//P1
-				case 9: 	//P2
-				case 10: 	//P3
-				case 11: 	//P4
-				case 12: 	//P5
-				case 13: 	//P6
-				case 14: 	//P7
-				case 15: 	//P8
+				case 5: 	//P
 					oppopoint = oppopoint + 1;
 					break;
 				default:
@@ -296,13 +321,13 @@ public class Field {
 	}
 	//get possible moves for designated piece
 	public ArrayList<int[]> get_available_moves(String player, int piece){
-		int p1_piece[][] = new int[16][3];
-		int p2_piece[][] = new int[16][3];
+		int p1_piece[][] = new int[16][4];
+		int p2_piece[][] = new int[16][4];
 		int i,j;
 		if(player.equals("me")){
 			//my step : copy myPiece to p1_piece, oppoPiece to p2_piece
 			for(i=0; i<16; i++){
-				for(j=0; j<3; j++){
+				for(j=0; j<4; j++){
 					p1_piece[i][j] = this.myPiece[i][j];
 					p2_piece[i][j] = this.oppoPiece[i][j];
 				}
@@ -310,7 +335,7 @@ public class Field {
 		}else if(player.equals("oppo")){
 			//oppo step : copy oppoPiece to p1_piece, myPiece to p2_piece
 			for(i=0; i<16; i++){
-				for(j=0; j<3; j++){
+				for(j=0; j<4; j++){
 					p1_piece[i][j] = this.oppoPiece[i][j];
 					p2_piece[i][j] = this.myPiece[i][j];
 				}
@@ -328,21 +353,22 @@ public class Field {
 		ArrayList<int[]> possibility = new ArrayList<int[]>();
 		int x = p1_piece[piece][1];
 		int y = p1_piece[piece][2];
+		int kind = p1_piece[piece][3];
 		int n;
 		boolean f_stop = false;
 		int tmp[] = new int[5];
-		switch(piece){
+		switch(kind){
 			case 0:			//K
 				//Front 1 step
 				tmp[0] = piece;
 				tmp[1] = x + 1;
 				tmp[2] = y;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;	//can move
-				if(x+1>8){
+				if(x+1 > 8){
 					tmp[4] = 0; //cannot move
 				}else{
-					for(i=0; i<16;i++){
+					for(i=0; i<16; i++){
 						if((p1_piece[i][1] == x+1) && (p1_piece[i][2] == y)){
 							tmp[4] = 0; //cannot move
 							break;
@@ -357,12 +383,12 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x + 1;
 				tmp[2] = y + 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;	//can move
 				if((x + 1 > 8) || (y + 1 > 8)){
 					tmp[4] = 0; //cannot move
 				}else{
-					for(i=0; i<16;i++){
+					for(i=0; i<16; i++){
 						if((p1_piece[i][1] == x + 1) && (p1_piece[i][2] == y + 1)){
 							tmp[4] = 0; //cannot move
 							break;
@@ -377,12 +403,12 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x;
 				tmp[2] = y + 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;	//can move
 				if(y + 1 > 8){
 					tmp[4] = 0; //cannot move
 				}else{
-					for(i=0; i<16;i++){
+					for(i=0; i<16; i++){
 						if((p1_piece[i][1] == x) && (p1_piece[i][2] == y + 1)){
 							tmp[4] = 0; //cannot move
 							break;
@@ -397,12 +423,12 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x - 1;
 				tmp[2] = y + 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;	//can move
 				if((x - 1 < 1) || (y + 1 > 8)){
 					tmp[4] = 0; //cannot move
 				}else{
-					for(i=0; i<16;i++){
+					for(i=0; i<16; i++){
 						if((p1_piece[i][1] == x - 1) && (p1_piece[i][2] == y + 1)){
 							tmp[4] = 0; //cannot move
 							break;
@@ -417,12 +443,12 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x - 1;
 				tmp[2] = y;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;	//can move
 				if(x - 1 < 1){
 					tmp[4] = 0; //cannot move
 				}else{
-					for(i=0; i<16;i++){
+					for(i=0; i<16; i++){
 						if((p1_piece[i][1] == x - 1) && (p1_piece[i][2] == y)){
 							tmp[4] = 0; //cannot move
 							break;
@@ -437,12 +463,12 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x - 1;
 				tmp[2] = y - 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;	//can move
 				if((x - 1 < 1) || (y - 1 <  1)){
 					tmp[4] = 0; //cannot move
 				}else{
-					for(i=0; i<16;i++){
+					for(i=0; i<16; i++){
 						if((p1_piece[i][1] == x - 1) && (p1_piece[i][2] == y - 1)){
 							tmp[4] = 0; //cannot move
 							break;
@@ -457,12 +483,12 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x;
 				tmp[2] = y - 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;	//can move
 				if(y - 1 <  1){
 					tmp[4] = 0; //cannot move
 				}else{
-					for(i=0; i<16;i++){
+					for(i=0; i<16; i++){
 						if((p1_piece[i][1] == x) && (p1_piece[i][2] == y - 1)){
 							tmp[4] = 0; //cannot move
 							break;
@@ -477,12 +503,12 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x + 1;
 				tmp[2] = y - 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;	//can move
 				if((x + 1 > 8) || (y - 1 < 1)){
 					tmp[4] = 0; //cannot move
 				}else{
-					for(i=0; i<16;i++){
+					for(i=0; i<16; i++){
 						if((p1_piece[i][1] == x + 1) && (p1_piece[i][2] == y - 1)){
 							tmp[4] = 0; //cannot move
 							break;
@@ -502,7 +528,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x + n;
 					tmp[2] = y;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(x + n > 8) {
@@ -534,7 +560,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x + n;
 					tmp[2] = y + n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x + n > 8) || (y + n > 8)) {
@@ -566,7 +592,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x;
 					tmp[2] = y + n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(y + n > 8) {
@@ -598,7 +624,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x - n;
 					tmp[2] = y + n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x - n < 1) || (y + n > 8)) {
@@ -630,7 +656,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x - n;
 					tmp[2] = y;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(x - n < 1) {
@@ -662,7 +688,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x - n;
 					tmp[2] = y - n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x - n < 1) || (y - n < 1)) {
@@ -694,7 +720,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x;
 					tmp[2] = y - n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(y - n < 1) {
@@ -726,7 +752,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x + n;
 					tmp[2] = y - n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x + n > 8) || (y - n < 1)) {
@@ -754,15 +780,14 @@ public class Field {
 				
 				break;
 				
-			case 2:		//B1
-			case 3: 	//B2
+			case 2:		//B
 				// Front Right n steps
 				f_stop = false;
 				for(n=1; n<8; n++){
 					tmp[0] = piece;
 					tmp[1] = x + n;
 					tmp[2] = y + n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x + n > 8) || (y + n > 8)) {
@@ -794,7 +819,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x - n;
 					tmp[2] = y + n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x - n < 1) || (y + n > 8)) {
@@ -826,7 +851,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x - n;
 					tmp[2] = y - n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x - n < 1) || (y - n < 1)) {
@@ -858,7 +883,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x + n;
 					tmp[2] = y - n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x + n > 8) || (y - n < 1)) {
@@ -886,13 +911,12 @@ public class Field {
 				
 				break;
 		
-			case 4:		//H1
-			case 5:		//H2
+			case 3:		//H
 				// Front Front Right				
 				tmp[0] = piece;
 				tmp[1] = x + 2;
 				tmp[2] = y + 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((x + 2 > 8) || (y + 1 > 8)) {
 					tmp[4] = 0;	//cannot move
@@ -912,7 +936,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x + 1;
 				tmp[2] = y + 2;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((x + 1 > 8) || (y + 2 > 8)) {
 					tmp[4] = 0;	//cannot move
@@ -932,7 +956,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x - 1;
 				tmp[2] = y + 2;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((x - 1 < 1) || (y + 2 > 8)) {
 					tmp[4] = 0;	//cannot move
@@ -952,7 +976,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x - 2;
 				tmp[2] = y + 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((x - 2 < 1) || (y + 1 > 8)) {
 					tmp[4] = 0;	//cannot move
@@ -972,7 +996,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x - 2;
 				tmp[2] = y - 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((x - 2 < 1) || (y - 1 < 1)) {
 					tmp[4] = 0;	//cannot move
@@ -992,7 +1016,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x - 1;
 				tmp[2] = y - 2;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((x - 1 < 1) || (y - 2 < 1)) {
 					tmp[4] = 0;	//cannot move
@@ -1012,7 +1036,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x + 1;
 				tmp[2] = y - 2;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((x + 1 > 8) || (y - 2 < 1)) {
 					tmp[4] = 0;	//cannot move
@@ -1032,7 +1056,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x + 2;
 				tmp[2] = y - 1;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((x + 2 > 8) || (y - 1 < 1)) {
 					tmp[4] = 0;	//cannot move
@@ -1050,15 +1074,14 @@ public class Field {
 				
 				break;
 				
-			case 6: //R1
-			case 7: //R2
+			case 4: //R
 				// Front n steps
 				f_stop = false;
 				for(n=1; n<8; n++){
 					tmp[0] = piece;
 					tmp[1] = x + n;
 					tmp[2] = y;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(x + n > 8) {
@@ -1090,7 +1113,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x;
 					tmp[2] = y + n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(y + n > 8) {
@@ -1122,7 +1145,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x - n;
 					tmp[2] = y;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(x - n < 1) {
@@ -1154,7 +1177,7 @@ public class Field {
 					tmp[0] = piece;
 					tmp[1] = x;
 					tmp[2] = y - n;
-					tmp[3] = -999 * sign;
+					tmp[3] = kind;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(y - n < 1) {
@@ -1182,19 +1205,12 @@ public class Field {
 				
 				break;
 			
-			case 8:		//P1
-			case 9:		//P2
-			case 10:	//P3
-			case 11:	//P4
-			case 12:	//P5
-			case 13:	//P6
-			case 14:	//P7
-			case 15:	//P8
+			case 5:		//P
 				// Front 1 step				
 				tmp[0] = piece;
 				tmp[1] = x + (1 * sign);
 				tmp[2] = y;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((x + (1 * sign) > 8) || (x + (1 * sign) < 1)) {
 					tmp[4] = 0;	//cannot move
@@ -1217,7 +1233,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x + (2 * sign);
 				tmp[2] = y;
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 1;			//can move
 				if((player.equals("me")) && (x != 2)) {
 					tmp[4] = 0;	//cannot move
@@ -1248,7 +1264,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x + (1 * sign);
 				tmp[2] = y - (1 * sign);
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 0;			//cannot move
 				for(i=0; i<16; i++){
 					if((p2_piece[i][1] == x + (1 * sign)) && (p2_piece[i][2] == y - (1 * sign))){
@@ -1264,7 +1280,7 @@ public class Field {
 				tmp[0] = piece;
 				tmp[1] = x + (1 * sign);
 				tmp[2] = y + (1 * sign);
-				tmp[3] = -999 * sign;
+				tmp[3] = kind;
 				tmp[4] = 0;			//cannot move
 				for(i=0; i<16; i++){
 					if((p2_piece[i][1] == x + (1 * sign)) && (p2_piece[i][2] == y + (1 * sign))){
@@ -1288,7 +1304,7 @@ public class Field {
 			if(possibility.get(i)[4] == 1){
 				Field child = new Field();
 				child.set_field(this);
-				child.move_piece(player, possibility.get(i)[0], possibility.get(i)[1], possibility.get(i)[2]);
+				child.move_piece(player, possibility.get(i)[0], possibility.get(i)[1], possibility.get(i)[2], possibility.get(i)[3]);
 				nextstep.add(child);
 			}
 		}
@@ -1389,6 +1405,7 @@ public class Field {
 		int chosen_piece = possibility_1st.get(chosen_index)[0];
 		int chosen_x = possibility_1st.get(chosen_index)[1];
 		int chosen_y = possibility_1st.get(chosen_index)[2];
+		int chosen_kind = possibility_1st.get(chosen_index)[3];
 
 		long endtime = System.currentTimeMillis();
 		if(f_debug == true){
@@ -1396,9 +1413,9 @@ public class Field {
 		}
 			
 		String msg = new String("\n" + "#candidates:" + candidates_1stmove_index.size() + "\n" + "chosenindex:" + chosen_index);
-		msg = msg + "\n\n" + "piece = " + Integer.toString(chosen_piece);
-		msg = msg + "\n" + "x = " + Integer.toString(chosen_x);
-		msg = msg + "\n" + "y = " + Integer.toString(chosen_y);
+		msg = msg + "\n\n" + "piece = " + chosen_piece + " (kind = " + chosen_kind + ")";
+		msg = msg + "\n" + "x = " + chosen_x;
+		msg = msg + "\n" + "y = " + chosen_y;
 		msg = msg + "\n" + "min_point after 2nd step = " + tmp_max_point;
 		if(f_msg == true){
 			JOptionPane.showMessageDialog(null, msg);
@@ -1406,7 +1423,7 @@ public class Field {
 		if(f_debug == true){
 			System.out.println(msg);
 		}
-		int[] return_move = {chosen_piece, chosen_x, chosen_y, tmp_max_point};
+		int[] return_move = {chosen_piece, chosen_x, chosen_y, chosen_kind, tmp_max_point};
 		return return_move;
 	}
 }

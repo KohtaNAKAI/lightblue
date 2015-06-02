@@ -34,23 +34,26 @@ public class Listener_available_moves4 implements ActionListener{
 				int p_1st = possibility_1st.get(i)[0];
 				int x_1st = possibility_1st.get(i)[1];
 				int y_1st = possibility_1st.get(i)[2];
+				int k_1st = possibility_1st.get(i)[3];
 				int p_2nd = possibility_2nd.get(j)[0];
 				int x_2nd = possibility_2nd.get(j)[1];
 				int y_2nd = possibility_2nd.get(j)[2];
+				int k_2nd = possibility_2nd.get(j)[3];
 				int p_3rd = bestmove[0];
 				int x_3rd = bestmove[1];
 				int y_3rd = bestmove[2];
-				int pt = bestmove[3];
-				int[] tmp = {i, p_1st, x_1st, y_1st, j, p_2nd, x_2nd, y_2nd, p_3rd, x_3rd, y_3rd, pt};
+				int k_3rd = bestmove[3];
+				int pt = bestmove[4];
+				int[] tmp = {i, p_1st, x_1st, y_1st, k_1st, j, p_2nd, x_2nd, y_2nd, k_2nd , p_3rd, x_3rd, y_3rd, k_3rd , pt};
 				comp_list.add(tmp);
 			}
 		}
 		
 		for(i=0; i<comp_list.size(); i++){
 			String msg = new String();
-			msg = msg + "1st[" + comp_list.get(i)[0] + "] : [" + comp_list.get(i)[1] + " , " + comp_list.get(i)[2] + " , " + comp_list.get(i)[3] + "] \t--> ";
-			msg = msg + "2nd[" + comp_list.get(i)[4] + "] : [" + comp_list.get(i)[5] + " , " + comp_list.get(i)[6] + " , " + comp_list.get(i)[7] + "] \t--> ";
-			msg = msg + "3rd best = [" + comp_list.get(i)[8] + " , " + comp_list.get(i)[9] + " , " + comp_list.get(i)[10] + "] \t/ point = " + comp_list.get(i)[11];
+			msg = msg + "1st[" + comp_list.get(i)[0] + "] : [" + comp_list.get(i)[1] + "(" + comp_list.get(i)[4] + ") , " + comp_list.get(i)[2] + " , " + comp_list.get(i)[3] + "] \t--> ";
+			msg = msg + "2nd[" + comp_list.get(i)[5] + "] : [" + comp_list.get(i)[6] + "(" + comp_list.get(i)[9] + ") , " + comp_list.get(i)[7] + " , " + comp_list.get(i)[8] + "] \t--> ";
+			msg = msg + "3rd best = [" + comp_list.get(i)[10] + "(" + comp_list.get(i)[13] + ") , " + comp_list.get(i)[11] + " , " + comp_list.get(i)[12] + "] \t/ point = " + comp_list.get(i)[14];
 			System.out.println(msg);
 		}
 		
@@ -60,16 +63,16 @@ public class Listener_available_moves4 implements ActionListener{
 		int move = 0;
 		for(i=0; i<comp_list.size(); i++){
 			if(comp_list.get(i)[0] == move){
-				if(comp_list.get(i)[11] < min){
-					min = comp_list.get(i)[11];
+				if(comp_list.get(i)[14] < min){
+					min = comp_list.get(i)[14];
 				}
 			}else{
 				int[] tmp = {move, min};
 				min_for_1st_move.add(tmp);
 				move = comp_list.get(i)[0];
 				min = 999;
-				if(comp_list.get(i)[11] < min){
-					min = comp_list.get(i)[11];
+				if(comp_list.get(i)[14] < min){
+					min = comp_list.get(i)[14];
 				}
 			}
 		}
@@ -102,19 +105,20 @@ public class Listener_available_moves4 implements ActionListener{
 		int chosen_piece = possibility_1st.get(chosen_index)[0];
 		int chosen_x = possibility_1st.get(chosen_index)[1];
 		int chosen_y = possibility_1st.get(chosen_index)[2];
+		int chosen_kind = possibility_1st.get(chosen_index)[3];
 		
 		long endtime = System.currentTimeMillis();
 		System.out.println("\n" + "start : " + starttime + " / end : " + endtime + " / duration : " + (endtime-starttime));
 	
 		String msg = new String("\n" + "#candidates:" + candidates.size() + "\n" + "chosenindex:" + chosen_index);
-		msg = msg + "\n\n" + "piece = " + Integer.toString(chosen_piece);
-		msg = msg + "\n" + "x = " + Integer.toString(chosen_x);
-		msg = msg + "\n" + "y = " + Integer.toString(chosen_y);
+		msg = msg + "\n\n" + "piece = " + chosen_piece + " (kind = " + chosen_kind + ")";
+		msg = msg + "\n" + "x = " + chosen_x;
+		msg = msg + "\n" + "y = " + chosen_y;
 		msg = msg + "\n" + "worst case point = " + point;
 		JOptionPane.showMessageDialog(null, msg);
 		System.out.println(msg);
 		
-		Lightblue2.current_situation.move_piece("me", chosen_piece, chosen_x, chosen_y);
+		Lightblue2.current_situation.move_piece("me", chosen_piece, chosen_x, chosen_y, chosen_kind);
 		Lightblue2.board.reflesh_board(chosen_x, chosen_y);
 	}
 }

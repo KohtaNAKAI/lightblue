@@ -85,27 +85,51 @@ public class Board{
 					break;
 				case 8:
 					piece = "P1";
+					if(Lightblue2.current_situation.myPiece[i][3] == 1){ //promotion
+						piece = "Q(P1)";
+					}
 					break;
 				case 9:
 					piece = "P2";
+					if(Lightblue2.current_situation.myPiece[i][3] == 1){ //promotion
+						piece = "Q(P2)";
+					}
 					break;
 				case 10:
 					piece = "P3";
+					if(Lightblue2.current_situation.myPiece[i][3] == 1){ //promotion
+						piece = "Q(P3)";
+					}
 					break;
 				case 11:
 					piece = "P4";
+					if(Lightblue2.current_situation.myPiece[i][3] == 1){ //promotion
+						piece = "Q(P4)";
+					}
 					break;
 				case 12:
 					piece = "P5";
+					if(Lightblue2.current_situation.myPiece[i][3] == 1){ //promotion
+						piece = "Q(P5)";
+					}
 					break;
 				case 13:
 					piece = "P6";
+					if(Lightblue2.current_situation.myPiece[i][3] == 1){ //promotion
+						piece = "Q(P6)";
+					}
 					break;
 				case 14:
 					piece = "P7";
+					if(Lightblue2.current_situation.myPiece[i][3] == 1){ //promotion
+						piece = "Q(P7)";
+					}
 					break;
 				case 15:
 					piece = "P8";
+					if(Lightblue2.current_situation.myPiece[i][3] == 1){ //promotion
+						piece = "Q(P8)";
+					}
 					break;
 				default:
 					break;
@@ -148,27 +172,51 @@ public class Board{
 					break;
 				case 8:
 					piece = "P1";
+					if(Lightblue2.current_situation.oppoPiece[i][3] == 1){ //promotion
+						piece = "Q(P1)";
+					}
 					break;
 				case 9:
 					piece = "P2";
+					if(Lightblue2.current_situation.oppoPiece[i][3] == 1){ //promotion
+						piece = "Q(P1)";
+					}
 					break;
 				case 10:
 					piece = "P3";
+					if(Lightblue2.current_situation.oppoPiece[i][3] == 1){ //promotion
+						piece = "Q(P1)";
+					}
 					break;
 				case 11:
 					piece = "P4";
+					if(Lightblue2.current_situation.oppoPiece[i][3] == 1){ //promotion
+						piece = "Q(P1)";
+					}
 					break;
 				case 12:
 					piece = "P5";
+					if(Lightblue2.current_situation.oppoPiece[i][3] == 1){ //promotion
+						piece = "Q(P1)";
+					}
 					break;
 				case 13:
 					piece = "P6";
+					if(Lightblue2.current_situation.oppoPiece[i][3] == 1){ //promotion
+						piece = "Q(P1)";
+					}
 					break;
 				case 14:
 					piece = "P7";
+					if(Lightblue2.current_situation.oppoPiece[i][3] == 1){ //promotion
+						piece = "Q(P1)";
+					}
 					break;
 				case 15:
 					piece = "P8";
+					if(Lightblue2.current_situation.oppoPiece[i][3] == 1){ //promotion
+						piece = "Q(P1)";
+					}
 					break;
 				default:
 					break;
