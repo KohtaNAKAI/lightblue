@@ -5,8 +5,8 @@ import javax.swing.*;
 public class Board{
 	public static JFrame Board = new JFrame("Chess Board");
 	public static JTextField SQ[][] = new JTextField[9][10];
-	public static int g_highlight_x = -1;
-	public static int g_highlight_y = -1;
+	public int g_highlight_x = -1;
+	public int g_highlight_y = -1;
 	
 	//constructor
 	public Board(){
@@ -242,7 +242,7 @@ public class Board{
 		}
 	}
 	//clear and color board
-	public static void clear_board(){
+	public void clear_board(){
 		int i,j;
 		for(i=8; i>0; i--){
 			for(j=1; j<9; j++){
@@ -257,15 +257,15 @@ public class Board{
 	}
 
 	//highlight
-	public static void highlight(){
+	public void highlight(){
 		SQ[g_highlight_x][g_highlight_y].setBackground(Color.YELLOW);
 	}
 	//change color
-	public static void change_color(int x, int y, Color color){
+	public void change_color(int x, int y, Color color){
 		SQ[x][y].setBackground(color);
 	}
 	//return back color
-	public static void return_color(int x, int y){
+	public void return_color(int x, int y){
 		if((x+y)%2 == 0){
 			SQ[x][y].setBackground(Color.LIGHT_GRAY);
 		}else{

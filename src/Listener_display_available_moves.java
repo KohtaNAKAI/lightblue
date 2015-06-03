@@ -54,17 +54,11 @@ class Listener_display_available_moves implements MouseListener{
 			String name = c.getName();
 			int move_to_x = Integer.valueOf(name.substring(0,1));
 			int move_to_y = Integer.valueOf(name.substring(2,3));
-			System.out.println("release : " + move_to_x + "," + move_to_y);
 			
 			int piece = 	selected_piece[0];
 			int move_fr_x = selected_piece[1];
 			int move_fr_y = selected_piece[2];
 			int kind = 		selected_piece[3];
-			
-			int tmp[] = {piece, move_to_x, move_to_y, kind};
-			
-			System.out.println("before:" + selected_player +","+ Arrays.toString(selected_piece));
-			System.out.println("after :" + selected_player +","+ Arrays.toString(tmp));
 			
 			if((move_fr_x == move_to_x) && (move_fr_y == move_to_y)){
 				//drug within same component
