@@ -2,6 +2,7 @@ public class Lightblue2 {
 	public static Field current_situation = new Field();
 	public static Board board = new Board();
 	public static Console console = new Console();
+	public static History history = new History();
 	
 	public static void main(String arg[]){
 		System.out.println("======== lightblue2 =========");

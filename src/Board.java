@@ -235,7 +235,7 @@ public class Board{
 		}
 		
 		//highlight
-		if(highlight_x != -1){
+		if(highlight_x > 0){
 			g_highlight_x = highlight_x;
 			g_highlight_y = highlight_y;
 			highlight();
@@ -256,7 +256,6 @@ public class Board{
 		}
 	}
 
-	
 	//highlight
 	public static void highlight(){
 		SQ[g_highlight_x][g_highlight_y].setBackground(Color.YELLOW);

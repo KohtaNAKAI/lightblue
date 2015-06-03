@@ -73,6 +73,7 @@ class Listener_display_available_moves implements MouseListener{
 				System.out.println("move");
 				//drug from other component to this component
 				Lightblue2.current_situation.move_piece(selected_player, piece, move_to_x, move_to_y, kind);
+				Lightblue2.history.add(selected_player, piece, move_to_x, move_to_y, kind);
 				Lightblue2.board.reflesh_board(move_to_x, move_to_y);
 			}
 			
