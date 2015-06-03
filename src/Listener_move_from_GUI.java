@@ -94,6 +94,7 @@ class Listener_move_from_GUI implements ActionListener{
 		}
 		
 		Lightblue2.current_situation.move_piece(player, token, x, y, kind);
+		Lightblue2.history.add(player, token, x, y, kind);
 		Lightblue2.board.reflesh_board(x, y);
 	}
 }

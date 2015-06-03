@@ -119,6 +119,7 @@ public class Listener_available_moves4 implements ActionListener{
 		System.out.println(msg);
 		
 		Lightblue2.current_situation.move_piece("me", chosen_piece, chosen_x, chosen_y, chosen_kind);
+		Lightblue2.history.add("me", chosen_piece, chosen_x, chosen_y, chosen_kind);
 		Lightblue2.board.reflesh_board(chosen_x, chosen_y);
 	}
 }

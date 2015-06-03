@@ -8,6 +8,7 @@ public class Console{
 	public JTextField JT_token = new JTextField();
 	public JTextField JT_x = new JTextField();
 	public JTextField JT_y = new JTextField();
+	public JTextArea JTA_history = new JTextArea(); 
 	
 	//constructor
 	public Console(){
@@ -63,7 +64,16 @@ public class Console{
 		JB_move.setBounds(300,130,100,50);
 		JB_move.addActionListener(new Listener_move_from_GUI());
 		
-		Console.setSize(420, 220);
+		//History
+		cont.add(JTA_history);
+		JTA_history.setBounds(10,200,300,240);
+		
+		JButton JB_move_back = new JButton("back");
+		cont.add(JB_move_back);
+		JB_move_back.setBounds(320,200,100,50);
+		JB_move_back.addActionListener(new Listener_moveback());
+		
+		Console.setSize(450, 500);
 		Console.setVisible(true);
 		Console.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

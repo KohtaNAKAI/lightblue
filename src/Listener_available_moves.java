@@ -40,7 +40,9 @@ public class Listener_available_moves implements ActionListener{
 		int chosen_piece = candidates_move.get(chosen_index)[0];
 		int chosen_x = candidates_move.get(chosen_index)[1];
 		int chosen_y = candidates_move.get(chosen_index)[2];
-		Lightblue2.current_situation.set_field(candidates_field.get(chosen_index));
+		int chosen_kind = candidates_move.get(chosen_index)[3];
+		Lightblue2.current_situation.move_piece("me", chosen_piece, chosen_x, chosen_y, chosen_kind);
+		Lightblue2.history.add("me", chosen_piece, chosen_x, chosen_y, chosen_kind);
 		
 		String msg = new String("\n" + "#candidates:" + Integer.toString(candidates_field.size()) + "\n" + "chosenindex:" + Integer.toString(chosen_index) + "\n");
 		msg = msg + "piece : " + chosen_piece + "\n";
