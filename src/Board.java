@@ -1,9 +1,12 @@
 import java.awt.*;
+
 import javax.swing.*;
 
 public class Board{
 	public static JFrame Board = new JFrame("Chess Board");
 	public static JTextField SQ[][] = new JTextField[9][10];
+	public static int g_highlight_x = -1;
+	public static int g_highlight_y = -1;
 	
 	//constructor
 	public Board(){
@@ -39,6 +42,10 @@ public class Board{
 						SQ[i][j] = new JTextField();
 						SQ[i][j].setOpaque(true);
 						SQ[i][j].setHorizontalAlignment(JTextField.CENTER);
+						String name;
+						name = i + "," + j;
+						SQ[i][j].setName(name);
+						SQ[i][j].addMouseListener(new Listener_display_available_moves());
 						cont.add(SQ[i][j]);
 					}
 				}
@@ -229,7 +236,9 @@ public class Board{
 		
 		//highlight
 		if(highlight_x != -1){
-			SQ[highlight_x][highlight_y].setBackground(Color.YELLOW);
+			g_highlight_x = highlight_x;
+			g_highlight_y = highlight_y;
+			highlight();
 		}
 	}
 	//clear and color board
@@ -245,5 +254,28 @@ public class Board{
 				}
 			}
 		}
+	}
+
+	
+	//highlight
+	public static void highlight(){
+		SQ[g_highlight_x][g_highlight_y].setBackground(Color.YELLOW);
+	}
+	//change color
+	public static void change_color(int x, int y, Color color){
+		SQ[x][y].setBackground(color);
+	}
+	//return back color
+	public static void return_color(int x, int y){
+		if((x+y)%2 == 0){
+			SQ[x][y].setBackground(Color.LIGHT_GRAY);
+		}else{
+			SQ[x][y].setBackground(Color.WHITE);
+		}
+		//highlight
+		if(g_highlight_x != -1){
+			highlight();
+		}
+		
 	}
 }
