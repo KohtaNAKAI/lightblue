@@ -27,6 +27,7 @@ public class History {
 		String msg = "history[" + index + "] : " + player + " [" + piece + "," + x + "," + y + "," + kind +"]\n";
 		System.out.println(msg);
 		Lightblue2.console.JTA_history.insert(msg, 0);
+		Lightblue2.console.JTA_history.setCaretPosition(0);
 		
 		Field tmp = new Field();
 		tmp.set_field(Lightblue2.current_situation);
@@ -89,7 +90,7 @@ public class History {
 			tmp_msg = tmp_msg + "history[" + i + "] : " + tmp_player + " [" + tmp_piece + "," + tmp_x + "," + tmp_y + "," + tmp_kind +"]\n";
 		}
 		Lightblue2.console.JTA_history.setText(tmp_msg);
-		
+		Lightblue2.console.JTA_history.setCaretPosition(0);
 		Lightblue2.current_situation.set_field(history[tmp_index]);
 		Lightblue2.board.reflesh_board(x, y);
 	}

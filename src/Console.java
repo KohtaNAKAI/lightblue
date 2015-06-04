@@ -8,7 +8,8 @@ public class Console{
 	public JTextField JT_token = new JTextField();
 	public JTextField JT_x = new JTextField();
 	public JTextField JT_y = new JTextField();
-	public JTextArea JTA_history = new JTextArea(); 
+	public JTextArea JTA_history = new JTextArea();
+	public JScrollPane Scroll = new JScrollPane(JTA_history);
 	
 	//constructor
 	public Console(){
@@ -65,9 +66,9 @@ public class Console{
 		JB_move.addActionListener(new Listener_move_from_GUI());
 		
 		//History
-		cont.add(JTA_history);
-		JTA_history.setBounds(10,200,300,240);
-		
+		Scroll.setBounds(10, 200, 300, 240);
+		cont.add(Scroll);
+	    
 		JButton JB_move_back = new JButton("back");
 		cont.add(JB_move_back);
 		JB_move_back.setBounds(320,200,100,50);
