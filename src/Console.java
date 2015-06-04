@@ -74,7 +74,7 @@ public class Console{
 		JB_move_back.setBounds(320,200,100,50);
 		JB_move_back.addActionListener(new Listener_moveback());
 		
-		Console.setSize(450, 500);
+		Console.setBounds(500, 0 , 450, 500);
 		Console.setVisible(true);
 		Console.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

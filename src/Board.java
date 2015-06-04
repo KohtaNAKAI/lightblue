@@ -1,5 +1,4 @@
 import java.awt.*;
-
 import javax.swing.*;
 
 public class Board{
@@ -51,7 +50,7 @@ public class Board{
 				}
 			}
 		}
-		Board.setSize(500,500);
+		Board.setBounds(0,0,500,500);
 		Board.setVisible(true);
 		Board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
