@@ -8,6 +8,7 @@ public class Console{
 	public JTextField JT_token = new JTextField();
 	public JTextField JT_x = new JTextField();
 	public JTextField JT_y = new JTextField();
+	public JTextField JT_num = new JTextField();
 	public JTextArea JTA_history = new JTextArea();
 	public JScrollPane Scroll = new JScrollPane(JTA_history);
 	
@@ -65,13 +66,20 @@ public class Console{
 		JB_move.setBounds(300,130,100,50);
 		JB_move.addActionListener(new Listener_move_from_GUI());
 		
+		JButton JB_Nturn = new JButton("N turns");
+		cont.add(JB_Nturn);
+		JB_Nturn.setBounds(10,200,100,50);
+		JB_Nturn.addActionListener(new Listener_search_moves());
+		cont.add(JT_num);
+		JT_num.setBounds(110,200,100,50);
+		
 		//History
-		Scroll.setBounds(10, 200, 300, 240);
+		Scroll.setBounds(10, 300, 300, 240);
 		cont.add(Scroll);
 	    
 		JButton JB_move_back = new JButton("back");
 		cont.add(JB_move_back);
-		JB_move_back.setBounds(320,200,100,50);
+		JB_move_back.setBounds(320,300,100,50);
 		JB_move_back.addActionListener(new Listener_moveback());
 		
 		Console.setBounds(500, 0 , 450, 500);

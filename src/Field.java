@@ -1426,4 +1426,79 @@ public class Field {
 		int[] return_move = {chosen_piece, chosen_x, chosen_y, chosen_kind, tmp_max_point};
 		return return_move;
 	}
+	
+	//recursive search
+	public int[] search_moves(int turn){
+		long starttime = System.currentTimeMillis();
+		System.out.println("search_moves : " + starttime);
+	
+		int i,j;
+		ArrayList<int[]> possibility_1st = new ArrayList<int[]>();
+		ArrayList<int[]> possibility_2nd = new ArrayList<int[]>();
+		ArrayList<Field> nextstep_1st = new ArrayList<Field>();
+		ArrayList<Field> nextstep_2nd = new ArrayList<Field>();
+		ArrayList<Integer> min_pt_of_2nd_move = new ArrayList<Integer>();
+		
+		//1st step
+		//get_available_moves
+		possibility_1st = this.get_available_moves("me");
+		//generate_nextstep_fields
+		nextstep_1st = this.generate_nextstep_fields("me", possibility_1st);
+		
+		//2nd step
+		for(i=0; i<nextstep_1st.size(); i++){
+			//get_available_moves
+			possibility_2nd = nextstep_1st.get(i).get_available_moves("oppo");
+			int min_pt = 999;
+			//generate_neststep_fields
+			nextstep_2nd = nextstep_1st.get(i).generate_nextstep_fields("oppo", possibility_2nd);
+			for(j=0; j<nextstep_2nd.size(); j++){
+				//this is the last turn to consider. evaluate and return back
+				if(turn == 1){
+					int tmp_pt = nextstep_2nd.get(j).evaluate();
+					if(min_pt > tmp_pt){
+						min_pt = tmp_pt;
+					}
+				}
+				//still next turn is there. recursively call. 
+				if(turn != 1){
+					int tmp[] = nextstep_2nd.get(j).search_moves(turn - 1);
+					int tmp_pt = tmp[4];
+					if(min_pt > tmp_pt){
+						min_pt = tmp_pt;
+					}
+				}
+				
+			}
+			min_pt_of_2nd_move.add(min_pt);
+		}
+		
+		//specify the best 1st move
+		int tmp_max_point = -999;
+		for(i=0; i<min_pt_of_2nd_move.size(); i++){
+			if(tmp_max_point <= min_pt_of_2nd_move.get(i)){
+				tmp_max_point = min_pt_of_2nd_move.get(i);
+			}
+		}
+	
+		//list up candidates
+		ArrayList<Integer> candidates_1stmove_index = new ArrayList<Integer>();
+		for(i=0; i<min_pt_of_2nd_move.size(); i++){
+			if(tmp_max_point == min_pt_of_2nd_move.get(i)){
+				candidates_1stmove_index.add(i);
+			}
+		}
+		
+		//random selection
+		Random rnd = new Random();
+		int chosen_index = candidates_1stmove_index.get(rnd.nextInt(candidates_1stmove_index.size()));
+		int chosen_piece = possibility_1st.get(chosen_index)[0];
+		int chosen_x = possibility_1st.get(chosen_index)[1];
+		int chosen_y = possibility_1st.get(chosen_index)[2];
+		int chosen_kind = possibility_1st.get(chosen_index)[3];
+			
+		int[] return_move = {chosen_piece, chosen_x, chosen_y, chosen_kind, tmp_max_point};
+		return return_move;
+	}
+
 }

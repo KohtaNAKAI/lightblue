@@ -4,7 +4,7 @@ public class Lightblue2 {
 	public static Console console = new Console();
 	public static History history = new History();
 	
-	public static void main(String arg[]){
+	public static void main(String[] arg){
 		System.out.println("======== lightblue2 =========");
 		board.reflesh_board(-1,-1);
 		System.out.println("created chess_board object.");
