@@ -12,12 +12,12 @@ public class Field {
 		//K
 		this.myPiece[0][0] = 0;
 		this.myPiece[0][1] = 1;
-		this.myPiece[0][2] = 4;
+		this.myPiece[0][2] = 5;
 		this.myPiece[0][3] = 0;		//K
 		//Q
 		this.myPiece[1][0] = 1;
 		this.myPiece[1][1] = 1;
-		this.myPiece[1][2] = 5;
+		this.myPiece[1][2] = 4;
 		this.myPiece[1][3] = 1;		//Q
 		//B1
 		this.myPiece[2][0] = 2;
@@ -94,12 +94,12 @@ public class Field {
 		//K
 		this.oppoPiece[0][0] = 0;
 		this.oppoPiece[0][1] = 8;
-		this.oppoPiece[0][2] = 4;
+		this.oppoPiece[0][2] = 5;
 		this.oppoPiece[0][3] = 0;	//K
 		//Q
 		this.oppoPiece[1][0] = 1;
 		this.oppoPiece[1][1] = 8;
-		this.oppoPiece[1][2] = 5;
+		this.oppoPiece[1][2] = 4;
 		this.oppoPiece[1][3] = 1;	//Q
 		//B1
 		this.oppoPiece[2][0] = 2;
