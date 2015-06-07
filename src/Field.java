@@ -711,9 +711,21 @@ public class Field {
 							for(i=0; i<16; i++){
 								ArrayList<int[]> tmp_castling = new ArrayList<int[]>();
 								if(player.equals("me")){
-									tmp_castling = this.get_available_moves("oppo", i);
+									if(i == 0){				//..in order to avoid infinite loop
+										if(this.oppoPiece[0][1] != 8){
+											tmp_castling = this.get_available_moves("oppo", i);
+										}
+									}else{
+										tmp_castling = this.get_available_moves("oppo", i);
+									}
 								}else{
-									tmp_castling = this.get_available_moves("me", i);
+									if(i == 0){				//..in order to avoid infinite loop
+										if(this.myPiece[0][1] != 1){
+											tmp_castling = this.get_available_moves("me", i);
+										}
+									}else{
+										tmp_castling = this.get_available_moves("me", i);
+									}
 								}
 								for(j=0; j<tmp_castling.size(); j++){
 									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y)){
@@ -759,9 +771,21 @@ public class Field {
 							for(i=0; i<16; i++){
 								ArrayList<int[]> tmp_castling = new ArrayList<int[]>();
 								if(player.equals("me")){
-									tmp_castling = this.get_available_moves("oppo", i);
+									if(i == 0){				//..in order to avoid infinite loop
+										if(this.oppoPiece[0][1] != 8){
+											tmp_castling = this.get_available_moves("oppo", i);
+										}
+									}else{
+										tmp_castling = this.get_available_moves("oppo", i);
+									}
 								}else{
-									tmp_castling = this.get_available_moves("me", i);
+									if(i == 0){				//..in order to avoid infinite loop
+										if(this.myPiece[0][1] != 1){
+											tmp_castling = this.get_available_moves("me", i);
+										}
+									}else{
+										tmp_castling = this.get_available_moves("me", i);
+									}
 								}
 								for(j=0; j<tmp_castling.size(); j++){
 									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y)){
@@ -819,9 +843,21 @@ public class Field {
 							for(i=0; i<16; i++){
 								ArrayList<int[]> tmp_castling = new ArrayList<int[]>();
 								if(player.equals("me")){
-									tmp_castling = this.get_available_moves("oppo", i);
+									if(i == 0){				//..in order to avoid infinite loop
+										if(this.oppoPiece[0][1] != 8){
+											tmp_castling = this.get_available_moves("oppo", i);
+										}
+									}else{
+										tmp_castling = this.get_available_moves("oppo", i);
+									}
 								}else{
-									tmp_castling = this.get_available_moves("me", i);
+									if(i == 0){				//..in order to avoid infinite loop
+										if(this.myPiece[0][1] != 1){
+											tmp_castling = this.get_available_moves("me", i);
+										}
+									}else{
+										tmp_castling = this.get_available_moves("me", i);
+									}
 								}
 								for(j=0; j<tmp_castling.size(); j++){
 									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y)){
@@ -872,9 +908,21 @@ public class Field {
 							for(i=0; i<16; i++){
 								ArrayList<int[]> tmp_castling = new ArrayList<int[]>();
 								if(player.equals("me")){
-									tmp_castling = this.get_available_moves("oppo", i);
+									if(i == 0){				//..in order to avoid infinite loop
+										if(this.oppoPiece[0][1] != 8){
+											tmp_castling = this.get_available_moves("oppo", i);
+										}
+									}else{
+										tmp_castling = this.get_available_moves("oppo", i);
+									}
 								}else{
-									tmp_castling = this.get_available_moves("me", i);
+									if(i == 0){				//..in order to avoid infinite loop
+										if(this.myPiece[0][1] != 1){
+											tmp_castling = this.get_available_moves("me", i);
+										}
+									}else{
+										tmp_castling = this.get_available_moves("me", i);
+									}
 								}
 								for(j=0; j<tmp_castling.size(); j++){
 									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y)){
@@ -2055,8 +2103,9 @@ public class Field {
 		int pone_2steps = possibility_1st.get(chosen_index)[5];
 		int en_passant = possibility_1st.get(chosen_index)[6];
 		int pone_to_be_taken = possibility_1st.get(chosen_index)[7];
+		int castling = possibility_1st.get(chosen_index)[8];
 			
-		int[] return_move = {chosen_piece, chosen_x, chosen_y, chosen_kind, tmp_max_point, pone_2steps, en_passant, pone_to_be_taken};
+		int[] return_move = {chosen_piece, chosen_x, chosen_y, chosen_kind, tmp_max_point, pone_2steps, en_passant, pone_to_be_taken, castling};
 		return return_move;
 	}
 
