@@ -62,24 +62,24 @@ class Listener_display_available_moves implements MouseListener{
 			int pone_2steps 		= 0;
 			int en_passant 			= 0;
 			int pone_to_be_taken 	= 0;
+			int castling 			= 0;
 			
 			if((move_fr_x == move_to_x) && (move_fr_y == move_to_y)){
 				//drug within same component
 				Lightblue2.board.reflesh_board(Lightblue2.board.g_highlight_x, Lightblue2.board.g_highlight_y);
 			}else{
-				System.out.println("move");
 				//drug from other component to this component
 				for(i=0; i<possibility.size(); i++){
 					if((possibility.get(i)[0] == piece) && (possibility.get(i)[1] == move_to_x) && (possibility.get(i)[2] == move_to_y) && (possibility.get(i)[3] == kind)){
 						pone_2steps 		= possibility.get(i)[5];
 						en_passant  		= possibility.get(i)[6];
 						pone_to_be_taken 	= possibility.get(i)[7];
-						System.out.println("here!");
+						castling			= possibility.get(i)[8];
 						break;
 					}
 				}
 				
-				Lightblue2.current_situation.move_piece(selected_player, piece, move_to_x, move_to_y, kind, pone_2steps ,en_passant ,pone_to_be_taken);
+				Lightblue2.current_situation.move_piece(selected_player, piece, move_to_x, move_to_y, kind, pone_2steps ,en_passant ,pone_to_be_taken, castling);
 				Lightblue2.history.add(selected_player, piece, move_to_x, move_to_y, kind);
 				Lightblue2.board.reflesh_board(move_to_x, move_to_y);
 			}

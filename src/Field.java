@@ -5,6 +5,7 @@ public class Field {
 	public int myPiece[][] = new int[16][4];
 	public int oppoPiece[][] = new int[16][4];
 	public boolean f_en_passant[][] = new boolean[2][16];
+	public boolean f_castling[][] = new boolean[2][2];
 	
 	//constructor
 	public Field(){
@@ -195,6 +196,13 @@ public class Field {
 				f_en_passant[i][j] = false;
 			}
 		}
+		
+		//f_castling
+		for(i=0; i<2; i++){			// 0:me / 1:oppo
+			for(j=0; j<2; j++){		// 0:left / 1:right
+				f_castling[i][j] = true;
+			}
+		}
 	}
 	//show for debug
 	public void debug_show(){
@@ -224,15 +232,36 @@ public class Field {
 				this.f_en_passant[i][j] = given_field.f_en_passant[i][j];
 			}
 		}
+		
+		//f_castling
+		for(i=0; i<2; i++){
+			for(j=0; j<2; j++){
+				this.f_castling[i][j] = given_field.f_castling[i][j];
+			}
+		}
 	}
 	//move piece
-	public void move_piece(String player, int piece, int x, int y, int kind, int pone_2steps, int en_passant, int pone_to_be_taken){
+	public void move_piece(String player, int piece, int x, int y, int kind, int pone_2steps, int en_passant, int pone_to_be_taken, int castling){
 		int i,j;
 		if(player.equals("me")){
 			this.myPiece[piece][1] = x;
 			this.myPiece[piece][2] = y;
 			
-			if(en_passant != 1){
+			if(en_passant == 1){
+				//en_passant
+				this.oppoPiece[pone_to_be_taken][0] = -99;
+				this.oppoPiece[pone_to_be_taken][1] = 0;
+				this.oppoPiece[pone_to_be_taken][2] = 0;
+				this.oppoPiece[pone_to_be_taken][3] = -99;
+			}else if(castling == 1){
+				//left castling
+				this.myPiece[6][1] = x;
+				this.myPiece[6][2] = y+1;
+			}else if(castling == 2){
+				//right castling
+				this.myPiece[7][1] = x;
+				this.myPiece[7][2] = y-1;
+			}else{
 				//normal atarihantei
 				for(i=0; i<16; i++){
 					if((this.oppoPiece[i][1] == x) && (this.oppoPiece[i][2] == y)){
@@ -243,12 +272,6 @@ public class Field {
 						break;
 					}
 				}
-			}else{
-				//en_passant
-				this.oppoPiece[pone_to_be_taken][0] = -99;
-				this.oppoPiece[pone_to_be_taken][1] = 0;
-				this.oppoPiece[pone_to_be_taken][2] = 0;
-				this.oppoPiece[pone_to_be_taken][3] = -99;
 			}
 			
 			//pone promotion
@@ -260,7 +283,21 @@ public class Field {
 			this.oppoPiece[piece][1] = x;
 			this.oppoPiece[piece][2] = y;
 			
-			if(en_passant != 1){
+			if(en_passant == 1){
+				//en_passant
+				this.myPiece[pone_to_be_taken][0] = -99;
+				this.myPiece[pone_to_be_taken][1] = 0;
+				this.myPiece[pone_to_be_taken][2] = 0;
+				this.myPiece[pone_to_be_taken][3] = -99;
+			}else if(castling == 1){
+				//left castling
+				this.oppoPiece[6][1] = x;
+				this.oppoPiece[6][2] = y+1;
+			}else if(castling == 2){
+				//right castling
+				this.oppoPiece[7][1] = x;
+				this.oppoPiece[7][2] = y-1;
+			}else{
 				//normal atarihantei
 				for(i=0; i<16; i++){
 					if((this.myPiece[i][1] == x) && (this.myPiece[i][2] == y)){
@@ -271,12 +308,6 @@ public class Field {
 						break;
 					}
 				}
-			}else{
-				//en_passant
-				this.myPiece[pone_to_be_taken][0] = -99;
-				this.myPiece[pone_to_be_taken][1] = 0;
-				this.myPiece[pone_to_be_taken][2] = 0;
-				this.myPiece[pone_to_be_taken][3] = -99;
 			}	
 			
 			//pone promotion
@@ -297,6 +328,27 @@ public class Field {
 			}else{
 				this.f_en_passant[1][piece] = true;
 			}
+		}
+		
+		//reflesh f_castling
+		if(player.equals("me")){
+			if(piece == 0){
+				f_castling[0][0] = false;
+				f_castling[0][1] = false;
+			}else if(piece == 6){
+				f_castling[0][0] = false;
+			}else if(piece == 7){
+				f_castling[0][1] = false;
+			}
+		}else{
+			if(piece == 0){
+				f_castling[1][0] = false;
+				f_castling[1][1] = false;
+			}else if(piece == 6){
+				f_castling[1][0] = false;
+			}else if(piece == 7){
+				f_castling[1][1] = false;
+			}	
 		}
 	}
 	//get evaluation point of the situation2
@@ -418,7 +470,7 @@ public class Field {
 		int kind = p1_piece[piece][3];
 		int n;
 		boolean f_stop = false;
-		int tmp[] = new int[8];
+		int tmp[] = new int[9];
 		//tmp[0] = piece
 		//tmp[1] = x (move to)
 		//tmp[2] = y (move to)
@@ -427,6 +479,8 @@ public class Field {
 		//tmp[5] = for pone : 2 steps forward or not
 		//tmp[6] = for pone : this move is en_passant or not
 		//tmp[7] = for pone : if so, number of p2 pone what p1 pone will take
+		//tmp[8] = for castling : 0=none / 1=left castling / 2=right castling
+		
 		switch(kind){
 			case 0:			//K
 				//Front 1 step
@@ -438,6 +492,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if(x+1 > 8){
 					tmp[4] = 0; //cannot move
 				}else{
@@ -461,6 +516,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x + 1 > 8) || (y + 1 > 8)){
 					tmp[4] = 0; //cannot move
 				}else{
@@ -484,6 +540,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if(y + 1 > 8){
 					tmp[4] = 0; //cannot move
 				}else{
@@ -507,6 +564,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x - 1 < 1) || (y + 1 > 8)){
 					tmp[4] = 0; //cannot move
 				}else{
@@ -530,6 +588,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if(x - 1 < 1){
 					tmp[4] = 0; //cannot move
 				}else{
@@ -553,6 +612,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x - 1 < 1) || (y - 1 <  1)){
 					tmp[4] = 0; //cannot move
 				}else{
@@ -576,6 +636,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if(y - 1 <  1){
 					tmp[4] = 0; //cannot move
 				}else{
@@ -599,6 +660,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x + 1 > 8) || (y - 1 < 1)){
 					tmp[4] = 0; //cannot move
 				}else{
@@ -611,6 +673,232 @@ public class Field {
 				}
 				if(tmp[4] == 1){
 					possibility.add(tmp.clone());
+				}
+				
+				//Left Castling
+				tmp[0] = piece;
+				tmp[1] = x;
+				tmp[2] = y - 2;
+				tmp[3] = kind;
+				tmp[4] = 0;	//cannot move
+				tmp[5] = 0;
+				tmp[6] = 0;
+				tmp[7] = 0;
+				tmp[8] = 1;
+				if(Lightblue2.White_or_Black.equals("white")){	//Left Castling = QueenSide Long Castling
+					if(((player.equals("me")) && (this.f_castling[0][0] == true)) || ((player.equals("oppo")) && (this.f_castling[1][0] == true))){
+						boolean f_tmp = true;
+						//check there's no pieces between K & R
+						for(i=0; i<16; i++){
+							//left 1
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y-1)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y-1))){
+								f_tmp = false;
+								break;
+							}
+							//left 2
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y-2)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y-2))){
+								f_tmp = false;
+								break;
+							}
+							//left 3
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y-3)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y-3))){
+								f_tmp = false;
+								break;
+							}
+						}
+						//check there's no p2 pieces checking K's route
+						if(f_tmp == true){
+							for(i=0; i<16; i++){
+								ArrayList<int[]> tmp_castling = new ArrayList<int[]>();
+								if(player.equals("me")){
+									tmp_castling = this.get_available_moves("oppo", i);
+								}else{
+									tmp_castling = this.get_available_moves("me", i);
+								}
+								for(j=0; j<tmp_castling.size(); j++){
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y)){
+										f_tmp = false;
+										break;
+									}
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y-1)){
+										f_tmp = false;
+										break;
+									}
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y-2)){
+										f_tmp = false;
+										break;
+									}
+								}
+							}
+						}
+						if(f_tmp == true){
+							tmp[4] = 1;		//can move
+						}
+					}
+					if(tmp[4] == 1){
+						possibility.add(tmp.clone());
+					}
+				}else{			//Left Castling = KingSide Short Castling
+					if(((player.equals("me")) && (this.f_castling[0][0] == true)) || ((player.equals("oppo")) && (this.f_castling[1][0] == true))){
+						boolean f_tmp = true;
+						//check there's no pieces between K & R
+						for(i=0; i<16; i++){
+							//Left 1
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y-1)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y-1))){
+								f_tmp = false;
+								break;
+							}
+							//Leftt 2
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y-2)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y-2))){
+								f_tmp = false;
+								break;
+							}
+						}
+						//check there's no p2 pieces checking K's route
+						if(f_tmp == true){
+							for(i=0; i<16; i++){
+								ArrayList<int[]> tmp_castling = new ArrayList<int[]>();
+								if(player.equals("me")){
+									tmp_castling = this.get_available_moves("oppo", i);
+								}else{
+									tmp_castling = this.get_available_moves("me", i);
+								}
+								for(j=0; j<tmp_castling.size(); j++){
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y)){
+										f_tmp = false;
+										break;
+									}
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y-1)){
+										f_tmp = false;
+										break;
+									}
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y-2)){
+										f_tmp = false;
+										break;
+									}
+								}
+							}
+						}
+						if(f_tmp == true){
+							tmp[4] = 1;		//can move
+						}
+					}
+					if(tmp[4] == 1){
+						possibility.add(tmp.clone());
+					}
+				}
+				
+				//Right Castling
+				tmp[0] = piece;
+				tmp[1] = x;
+				tmp[2] = y + 2;
+				tmp[3] = kind;
+				tmp[4] = 0;	//cannot move
+				tmp[5] = 0;
+				tmp[6] = 0;
+				tmp[7] = 0;
+				tmp[8] = 2;
+				if(Lightblue2.White_or_Black.equals("white")){	//Right Castling = KingSide Short Castling
+					if(((player.equals("me")) && (this.f_castling[0][1] == true)) || ((player.equals("oppo")) && (this.f_castling[1][1] == true))){
+						boolean f_tmp = true;
+						//check there's no pieces between K & R
+						for(i=0; i<16; i++){
+							//Right 1
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y+1)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y+1))){
+								f_tmp = false;
+								break;
+							}
+							//Right 2
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y+2)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y+2))){
+								f_tmp = false;
+								break;
+							}
+						}
+						//check there's no p2 pieces checking K's route
+						if(f_tmp == true){
+							for(i=0; i<16; i++){
+								ArrayList<int[]> tmp_castling = new ArrayList<int[]>();
+								if(player.equals("me")){
+									tmp_castling = this.get_available_moves("oppo", i);
+								}else{
+									tmp_castling = this.get_available_moves("me", i);
+								}
+								for(j=0; j<tmp_castling.size(); j++){
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y)){
+										f_tmp = false;
+										break;
+									}
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y+1)){
+										f_tmp = false;
+										break;
+									}
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y+2)){
+										f_tmp = false;
+										break;
+									}
+								}
+							}
+						}
+						if(f_tmp == true){
+							tmp[4] = 1;		//can move
+						}
+					}
+					if(tmp[4] == 1){
+						possibility.add(tmp.clone());
+					}
+				}else{			//Right Castling = QueenSide Long Castling
+					if(((player.equals("me")) && (this.f_castling[0][1] == true)) || ((player.equals("oppo")) && (this.f_castling[1][1] == true))){
+						boolean f_tmp = true;
+						//check there's no pieces between K & R
+						for(i=0; i<16; i++){
+							//Right 1
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y+1)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y+1))){
+								f_tmp = false;
+								break;
+							}
+							//Right 2
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y+2)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y+2))){
+								f_tmp = false;
+								break;
+							}
+							//Right 3
+							if(((p1_piece[i][1] == x) && (p1_piece[i][2] == y+3)) || ((p2_piece[i][1] == x) && (p2_piece[i][2] == y+3))){
+								f_tmp = false;
+								break;
+							}
+						}
+						//check there's no p2 pieces checking K's route
+						if(f_tmp == true){
+							for(i=0; i<16; i++){
+								ArrayList<int[]> tmp_castling = new ArrayList<int[]>();
+								if(player.equals("me")){
+									tmp_castling = this.get_available_moves("oppo", i);
+								}else{
+									tmp_castling = this.get_available_moves("me", i);
+								}
+								for(j=0; j<tmp_castling.size(); j++){
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y)){
+										f_tmp = false;
+										break;
+									}
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y+1)){
+										f_tmp = false;
+										break;
+									}
+									if((tmp_castling.get(j)[1] == x) && (tmp_castling.get(j)[2] == y+2)){
+										f_tmp = false;
+										break;
+									}
+								}
+							}
+						}
+						if(f_tmp == true){
+							tmp[4] = 1;		//can move
+						}
+					}
+					if(tmp[4] == 1){
+						possibility.add(tmp.clone());
+					}
 				}
 				
 				break;
@@ -626,6 +914,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(x + n > 8) {
@@ -661,6 +950,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x + n > 8) || (y + n > 8)) {
@@ -696,6 +986,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(y + n > 8) {
@@ -731,6 +1022,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x - n < 1) || (y + n > 8)) {
@@ -766,6 +1058,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(x - n < 1) {
@@ -801,6 +1094,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x - n < 1) || (y - n < 1)) {
@@ -836,6 +1130,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(y - n < 1) {
@@ -871,6 +1166,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x + n > 8) || (y - n < 1)) {
@@ -909,6 +1205,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x + n > 8) || (y + n > 8)) {
@@ -944,6 +1241,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x - n < 1) || (y + n > 8)) {
@@ -979,6 +1277,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x - n < 1) || (y - n < 1)) {
@@ -1014,6 +1313,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if((x + n > 8) || (y - n < 1)) {
@@ -1051,6 +1351,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x + 2 > 8) || (y + 1 > 8)) {
 					tmp[4] = 0;	//cannot move
 				}else{
@@ -1074,6 +1375,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x + 1 > 8) || (y + 2 > 8)) {
 					tmp[4] = 0;	//cannot move
 				}else{
@@ -1097,6 +1399,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x - 1 < 1) || (y + 2 > 8)) {
 					tmp[4] = 0;	//cannot move
 				}else{
@@ -1120,6 +1423,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x - 2 < 1) || (y + 1 > 8)) {
 					tmp[4] = 0;	//cannot move
 				}else{
@@ -1143,6 +1447,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x - 2 < 1) || (y - 1 < 1)) {
 					tmp[4] = 0;	//cannot move
 				}else{
@@ -1166,6 +1471,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x - 1 < 1) || (y - 2 < 1)) {
 					tmp[4] = 0;	//cannot move
 				}else{
@@ -1189,6 +1495,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x + 1 > 8) || (y - 2 < 1)) {
 					tmp[4] = 0;	//cannot move
 				}else{
@@ -1212,6 +1519,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x + 2 > 8) || (y - 1 < 1)) {
 					tmp[4] = 0;	//cannot move
 				}else{
@@ -1239,6 +1547,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(x + n > 8) {
@@ -1274,6 +1583,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(y + n > 8) {
@@ -1309,6 +1619,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(x - n < 1) {
@@ -1344,6 +1655,7 @@ public class Field {
 					tmp[5] = 0;
 					tmp[6] = 0;
 					tmp[7] = 0;
+					tmp[8] = 0;
 					if(f_stop == false){
 						tmp[4] = 1;	//can move
 						if(y - n < 1) {
@@ -1384,6 +1696,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((x + (1 * sign) > 8) || (x + (1 * sign) < 1)) {
 					tmp[4] = 0;	//cannot move
 				}else{
@@ -1410,6 +1723,7 @@ public class Field {
 				tmp[5] = 1;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				if((player.equals("me")) && (x != 2)) {
 					tmp[4] = 0;	//cannot move
 				}else if(player.equals("oppo") && (x != 7)){
@@ -1444,6 +1758,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				for(i=0; i<16; i++){
 					if((p2_piece[i][1] == x + (1 * sign)) && (p2_piece[i][2] == y - (1 * sign))){
 						tmp[4] = 1;	//can move
@@ -1493,6 +1808,7 @@ public class Field {
 				tmp[5] = 0;
 				tmp[6] = 0;
 				tmp[7] = 0;
+				tmp[8] = 0;
 				for(i=0; i<16; i++){
 					if((p2_piece[i][1] == x + (1 * sign)) && (p2_piece[i][2] == y + (1 * sign))){
 						tmp[4] = 1;	//can move
@@ -1545,7 +1861,7 @@ public class Field {
 			if(possibility.get(i)[4] == 1){
 				Field child = new Field();
 				child.set_field(this);
-				child.move_piece(player, possibility.get(i)[0], possibility.get(i)[1], possibility.get(i)[2], possibility.get(i)[3], possibility.get(i)[5], possibility.get(i)[6], possibility.get(i)[7]);
+				child.move_piece(player, possibility.get(i)[0], possibility.get(i)[1], possibility.get(i)[2], possibility.get(i)[3], possibility.get(i)[5], possibility.get(i)[6], possibility.get(i)[7], possibility.get(i)[8]);
 				nextstep.add(child);
 			}
 		}
