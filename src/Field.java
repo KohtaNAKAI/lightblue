@@ -12,12 +12,20 @@ public class Field {
 		//K
 		this.myPiece[0][0] = 0;
 		this.myPiece[0][1] = 1;
-		this.myPiece[0][2] = 5;
+		if(Lightblue2.White_or_Black.equals("white")){
+			this.myPiece[0][2] = 5;
+		}else{
+			this.myPiece[0][2] = 4;
+		}
 		this.myPiece[0][3] = 0;		//K
 		//Q
 		this.myPiece[1][0] = 1;
 		this.myPiece[1][1] = 1;
-		this.myPiece[1][2] = 4;
+		if(Lightblue2.White_or_Black.equals("white")){
+			this.myPiece[1][2] = 4;
+		}else{
+			this.myPiece[1][2] = 5;
+		}
 		this.myPiece[1][3] = 1;		//Q
 		//B1
 		this.myPiece[2][0] = 2;
@@ -94,12 +102,20 @@ public class Field {
 		//K
 		this.oppoPiece[0][0] = 0;
 		this.oppoPiece[0][1] = 8;
-		this.oppoPiece[0][2] = 5;
+		if(Lightblue2.White_or_Black.equals("white")){
+			this.oppoPiece[0][2] = 5;
+		}else{
+			this.oppoPiece[0][2] = 4;
+		}
 		this.oppoPiece[0][3] = 0;	//K
 		//Q
 		this.oppoPiece[1][0] = 1;
 		this.oppoPiece[1][1] = 8;
-		this.oppoPiece[1][2] = 4;
+		if(Lightblue2.White_or_Black.equals("white")){
+			this.oppoPiece[1][2] = 4;
+		}else{
+			this.oppoPiece[1][2] = 5;
+		}
 		this.oppoPiece[1][3] = 1;	//Q
 		//B1
 		this.oppoPiece[2][0] = 2;
@@ -282,8 +298,6 @@ public class Field {
 				this.f_en_passant[1][piece] = true;
 			}
 		}
-		//System.out.println("flag(me) : " + Arrays.toString(this.f_en_passant[0]));
-		//System.out.println("flag(op) : " + Arrays.toString(this.f_en_passant[1]));
 	}
 	//get evaluation point of the situation2
 	public int evaluate(){
