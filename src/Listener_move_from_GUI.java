@@ -93,7 +93,7 @@ class Listener_move_from_GUI implements ActionListener{
 			System.out.println("error : inproper piece input.");
 		}
 		
-		Lightblue2.current_situation.move_piece(player, token, x, y, kind);
+		Lightblue2.current_situation.move_piece(player, token, x, y, kind, 0, 0, 0);	//dummy. doesn't work well for en_passant.
 		Lightblue2.history.add(player, token, x, y, kind);
 		Lightblue2.board.reflesh_board(x, y);
 	}

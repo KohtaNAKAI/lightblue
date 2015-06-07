@@ -6,18 +6,18 @@ class Listener_display_available_moves implements MouseListener{
 	public static boolean selected = false;
 	public static String selected_player = "xxx";
 	public static int selected_piece[] = {-99, -99, -99, -99};
+	public static ArrayList<int[]> possibility = new ArrayList<int[]>();
 	
 	public void mouseClicked(MouseEvent e){	
+		int i,j;
 		if(selected == false){								//Normal Operation
 			Component c = (Component)e.getSource();
 			String name = c.getName();
 			int x = Integer.valueOf(name.substring(0,1));
 			int y = Integer.valueOf(name.substring(2,3));
 			
-			int i,j;
 			for(i=0; i<16; i++){
 				if((Lightblue2.current_situation.myPiece[i][1] == x) && (Lightblue2.current_situation.myPiece[i][2] == y)){
-					ArrayList<int[]> possibility = new ArrayList<int[]>();
 					possibility = Lightblue2.current_situation.get_available_moves("me", Lightblue2.current_situation.myPiece[i][0]);
 					for(j=0; j<possibility.size(); j++){
 						int move_x = possibility.get(j)[1];
@@ -32,7 +32,6 @@ class Listener_display_available_moves implements MouseListener{
 					selected_piece[3] = Lightblue2.current_situation.myPiece[i][3];
 					break;
 				}else if((Lightblue2.current_situation.oppoPiece[i][1] == x) && (Lightblue2.current_situation.oppoPiece[i][2] == y)){
-					ArrayList<int[]> possibility = new ArrayList<int[]>();
 					possibility = Lightblue2.current_situation.get_available_moves("oppo", Lightblue2.current_situation.oppoPiece[i][0]);
 					for(j=0; j<possibility.size(); j++){
 						int move_x = possibility.get(j)[1];
@@ -55,10 +54,14 @@ class Listener_display_available_moves implements MouseListener{
 			int move_to_x = Integer.valueOf(name.substring(0,1));
 			int move_to_y = Integer.valueOf(name.substring(2,3));
 			
-			int piece = 	selected_piece[0];
-			int move_fr_x = selected_piece[1];
-			int move_fr_y = selected_piece[2];
-			int kind = 		selected_piece[3];
+			int piece 				= selected_piece[0];
+			int move_fr_x 			= selected_piece[1];
+			int move_fr_y 			= selected_piece[2];
+			int kind 				= selected_piece[3];
+			
+			int pone_2steps 		= 0;
+			int en_passant 			= 0;
+			int pone_to_be_taken 	= 0;
 			
 			if((move_fr_x == move_to_x) && (move_fr_y == move_to_y)){
 				//drug within same component
@@ -66,7 +69,17 @@ class Listener_display_available_moves implements MouseListener{
 			}else{
 				System.out.println("move");
 				//drug from other component to this component
-				Lightblue2.current_situation.move_piece(selected_player, piece, move_to_x, move_to_y, kind);
+				for(i=0; i<possibility.size(); i++){
+					if((possibility.get(i)[0] == piece) && (possibility.get(i)[1] == move_to_x) && (possibility.get(i)[2] == move_to_y) && (possibility.get(i)[3] == kind)){
+						pone_2steps 		= possibility.get(i)[5];
+						en_passant  		= possibility.get(i)[6];
+						pone_to_be_taken 	= possibility.get(i)[7];
+						System.out.println("here!");
+						break;
+					}
+				}
+				
+				Lightblue2.current_situation.move_piece(selected_player, piece, move_to_x, move_to_y, kind, pone_2steps ,en_passant ,pone_to_be_taken);
 				Lightblue2.history.add(selected_player, piece, move_to_x, move_to_y, kind);
 				Lightblue2.board.reflesh_board(move_to_x, move_to_y);
 			}
@@ -77,6 +90,8 @@ class Listener_display_available_moves implements MouseListener{
 			selected_piece[1] = -99;
 			selected_piece[2] = -99;
 			selected_piece[3] = -99;
+			
+			possibility = new ArrayList<int[]>();
 		}
 	}
 	

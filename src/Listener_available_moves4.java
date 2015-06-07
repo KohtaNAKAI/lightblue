@@ -106,6 +106,9 @@ public class Listener_available_moves4 implements ActionListener{
 		int chosen_x = possibility_1st.get(chosen_index)[1];
 		int chosen_y = possibility_1st.get(chosen_index)[2];
 		int chosen_kind = possibility_1st.get(chosen_index)[3];
+		int pone_2steps = possibility_1st.get(chosen_index)[5];
+		int en_passant = possibility_1st.get(chosen_index)[6];
+		int pone_to_be_taken = possibility_1st.get(chosen_index)[7];
 		
 		long endtime = System.currentTimeMillis();
 		System.out.println("\n" + "start : " + starttime + " / end : " + endtime + " / duration : " + (endtime-starttime));
@@ -118,7 +121,7 @@ public class Listener_available_moves4 implements ActionListener{
 		JOptionPane.showMessageDialog(null, msg);
 		System.out.println(msg);
 		
-		Lightblue2.current_situation.move_piece("me", chosen_piece, chosen_x, chosen_y, chosen_kind);
+		Lightblue2.current_situation.move_piece("me", chosen_piece, chosen_x, chosen_y, chosen_kind, pone_2steps, en_passant, pone_to_be_taken);
 		Lightblue2.history.add("me", chosen_piece, chosen_x, chosen_y, chosen_kind);
 		Lightblue2.board.reflesh_board(chosen_x, chosen_y);
 	}
